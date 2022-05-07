@@ -42,9 +42,7 @@ To use this script you must have :
 
 You will need your **MISP URL** that specifies where you are hosting your MISP instance and the **API key**.
 
-To fetch the MISP API key, sign in to your MISP instance and select **Event Actions** > **Automation** from the top bar.
-
-Your current API key is displayed here.
+To fetch the MISP API key, sign in to your MISP instance and follow **Administration** > **List Auth Keys** > **Add Authentication Key**
 
 ## **Installation and Usage**
 
@@ -53,14 +51,16 @@ You can configure this script in your environment in the following ways.
 - Poll for CTIX data one time
 - Automatically poll for CTIX data
 
-
+## Install Prerequisite
+  $ source /var/www/MISP/venv/bin/activate
+  $ pip3 install -r requirements.txt
 
 ### **Poll for CTIX data one time**
 
-Configure your data and run the CIC-MISP script one time. It fetches the data from CTIX and uploads it to the MISP application as a one-time activity.
+Configure your data and run the script one time. It fetches the data from CTIX and uploads it to the MISP application as a one-time activity.
 
-- Clone the repository from GitHub [git clone https://github.com/cyware-labs/project-cic-misp]
-- Install the requirements mentioned in the requirements.txt file [pip3 install -r requirements.txt]
+- Clone the repository from GitHub [git clone https://github.com/mahsimajalooli/cic-misp.git]
+- Install the requirements mentioned in the requirements.txt file [source /var/www/MISP/venv/bin/activate][pip3 install -r requirements.txt]
 - Configure the following required credentials into the credentials.py file.
 
 taxii_discovery_url = &quot;Enter your TAXII 2.0 URL&quot;
@@ -94,13 +94,13 @@ misp_api = &quot;Enter your MISP API key&quot;
 
 Configure your data and run the CIC-MISP script as a cron job so that it can periodically fetch the data from the CTIX application and upload it to MISP. You will need to define a polling frequency in seconds to periodically poll for data.
 
-- Clone the repository from GitHub [git clone https://github.com/cyware-labs/project-cic-misp]
+- Clone the repository from GitHub [git clone https://github.com/mahsimajalooli/cic-misp.git]
 
-- Install the requirements mentioned in the requirements.txt file [pip3 install -r requirements.txt]
+- Install the requirements mentioned in the requirements.txt file [source /var/www/MISP/venv/bin/activate] [pip3 install -r requirements.txt]
 
 - Configure the following required credentials into the credentials.py file.
 
-**Important** : You have to specify the cron job interval in seconds for the parameter cron_seconds to run the cron job successfully.
+**Important** : You have to specify the cron job interval in seconds for the parameter cron_seconds to run the cron job successfully. It recommends a schedule for one or two poll requests per day.
 
 taxii_discovery_url = &quot;Enter your TAXII 2.0 URL&quot;
 
@@ -141,43 +141,12 @@ CIC-MISP contains two integral sections
 2. It sends the indicators/ reports to MISP&#39;s REST API, which then proceeds to convert the STIX data into a MISP event.
 3. You can now view CTIX indicators and report objects on MISP.
 
+## Terminating Task
+ showing cron job:  crontab -l
+ terminating cron job: crontab -r
+ kill the proccess: ps aux | grep cic-misp --> kill -9 {proccess_id}
 
-## Contribution
-
-While this project has been initiated by Cyware Labs, it&#39;s kept alive by the community. We are always on the lookout for more features and identification issues, fixes, and features to ensure the project is kept up to date and welcome contributions!
-
-
-
-The best way to do so is to open an issue. We would love to hear your thoughts on improvements and features. You can also fork this repository, add your code in and raise a pull request to add your code directly into our repository!
-
-
-
-## Known Issues:
-
-- You can not import the same reporter or indicator twice in MISP. Doing so would result in an empty event. This is due to MISP&#39;s way of handling and parsing report data.
-
-- If the data pattern on an exported STIX data contains multiple indicators mapped to a single ID, then the whole pattern is imported as a MISP event. The individual indicator values are not imported as separate MISP events. This is due to MISP&#39;s handling of multiple indicators mapped to a single indicator pattern.
-
-(Eg:[ipv4-addr:value = &#39;12.22.11.1&#39;] OR [ipv4-addr:value = &#39;12.44.11.45&#39;]), 
-
-Licensing Details
-
-
-
-MIT LICENSE
 
 
 
 Copyright (c) <2021> Cyware Labs, inc
-
-
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-
-
-The above copyright notice and this permission notice (including the next paragraph) shall be included in all copies or substantial portions of the Software.
-
-
-
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL CYWARE LABS, INC. OR ITS AFFILIATES BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
