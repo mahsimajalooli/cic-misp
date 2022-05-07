@@ -138,9 +138,9 @@ CIC-MISP contains two integral sections
 3. You can now view CTIX indicators and report objects on MISP.
 
 ## Terminating Task
- showing cron job:  crontab -l
- terminating cron job: crontab -r
- kill the proccess: ps aux | grep cic-misp --> kill -9 {proccess_id}
+  - showing cron job:  crontab -l
+  - terminating cron job: crontab -r
+  - kill the proccess: ps aux | grep cic-misp --> kill -9 {proccess_id}
 
 
 
