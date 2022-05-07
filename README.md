@@ -51,16 +51,12 @@ You can configure this script in your environment in the following ways.
 - Poll for CTIX data one time
 - Automatically poll for CTIX data
 
-## Install Prerequisite
-  $ source /var/www/MISP/venv/bin/activate
-  $ pip3 install -r requirements.txt
-
 ### **Poll for CTIX data one time**
 
 Configure your data and run the script one time. It fetches the data from CTIX and uploads it to the MISP application as a one-time activity.
 
 - Clone the repository from GitHub [git clone https://github.com/mahsimajalooli/cic-misp.git]
-- Install the requirements mentioned in the requirements.txt file [source /var/www/MISP/venv/bin/activate][pip3 install -r requirements.txt]
+- Install the requirements mentioned in the requirements.txt file [source /var/www/MISP/venv/bin/activate] then [pip3 install -r requirements.txt]
 - Configure the following required credentials into the credentials.py file.
 
 taxii_discovery_url = &quot;Enter your TAXII 2.0 URL&quot;
